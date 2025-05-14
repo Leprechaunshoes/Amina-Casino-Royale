@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Amina Casino - Spin to Win</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #003366, #ffd700);
+      color: #fff;
+      text-align: center;
+      padding: 50px;
+    }
+    .container {
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 30px;
+      border-radius: 10px;
+      display: inline-block;
+    }
+    input, button {
+      padding: 10px;
+      font-size: 16px;
+      margin: 10px;
+      border-radius: 5px;
+      border: none;
+    }
+    button {
+      background-color: #ffd700;
+      color: #003366;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #ffa500;
+    }
+    .result {
+      font-size: 20px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Welcome to Amina Casino</h1>
+    <p>Enter your Algorand wallet to play</p>
+    <input type="text" id="wallet" placeholder="Enter your wallet address" style="width: 90%;">
+    <br>
+    <button onclick="spin()">Spin to Win!</button>
+    <div class="result" id="result"></div>
+    <h3>Your Amina Balance: <span id="balance">0</span></h3>
+    <hr>
+    <h4>Support the Casino</h4>
+    <p>Donate ALGO to: <br><b>6ZL5LU6ZOG5SQLYD2GLBGFZK7TKM2BB7WGFZCRILWPRRHLH3NYVU5BASYI</b></p>
+  </div>
+
+  <script>
+    let balance = 0;
+    let lastSpin = 0;
+
+    function spin() {
+      const wallet = document.getElementById('wallet').value.trim();
+      const now = Date.now();
+
+      if (!wallet) {
+        alert("Please enter your Algorand wallet address.");
+        return;
+      }
+
+      if (now - lastSpin < 60 * 60 * 1000) {
+        document.getElementById("result").innerText = "You can only spin once per hour!";
+        return;
+      }
+
+      const prizes = [0, 0.1, 0.25, 0.5, 1, 2];
+      const prize = prizes[Math.floor(Math.random() * prizes.length)];
+
+      balance += prize;
+      lastSpin = now;
+
+      document.getElementById("result").innerText = `You won ${prize} Amina!`;
+      document.getElementById("balance").innerText = balance.toFixed(2);
+    }
+  </script>
+
+</body>
+</html>
